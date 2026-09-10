@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Admin\AuditController;
 use App\Http\Controllers\Admin\BillController;
+use App\Http\Controllers\Admin\BirthdayController;
+use App\Http\Controllers\Admin\CalendarController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DailyEntryController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -9,6 +11,7 @@ use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\ExpenseController;
 use App\Http\Controllers\Admin\LocationController;
 use App\Http\Controllers\Admin\CashSaleController;
+use App\Http\Controllers\Admin\HolidayController;
 use App\Http\Controllers\Admin\MilkPurchaseController;
 use App\Http\Controllers\Admin\MilkRateController;
 use App\Http\Controllers\Admin\MilkStockController;
@@ -68,6 +71,46 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         Route::post('copy-previous', [DailyEntryController::class, 'copyPreviousDay'])->name('copy-previous');
         Route::get('calendar', [DailyEntryController::class, 'calendar'])->name('calendar');
         Route::post('{dailyEntry}/toggle-lock', [DailyEntryController::class, 'toggleLock'])->name('toggle-lock');
+    });
+
+    /*
+    |----------------------------------------------------------------------
+    | Calendar
+    |----------------------------------------------------------------------
+    | One page (FullCalendar) shows Events, Meetings, Reminders and Tasks
+    | (all backed by CalendarEvent) plus read-only Holiday and Birthday
+    | overlays. Holidays and Birthdays each additionally get their own
+    | DataTables CRUD screen for bulk management.
+    */
+    Route::middleware('permission:calendar.view')->prefix('calendar')->name('calendar.')->group(function () {
+        Route::get('/', [CalendarController::class, 'index'])->name('index');
+        Route::get('feed', [CalendarController::class, 'feed'])->name('feed');
+        Route::get('{calendar_event}', [CalendarController::class, 'show'])->name('show');
+        Route::post('/', [CalendarController::class, 'store'])->name('store');
+        Route::put('{calendar_event}', [CalendarController::class, 'update'])->name('update');
+        Route::post('{calendar_event}/reschedule', [CalendarController::class, 'reschedule'])->name('reschedule');
+        Route::post('{calendar_event}/status', [CalendarController::class, 'updateStatus'])->name('update-status');
+        Route::delete('{calendar_event}', [CalendarController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::middleware('permission:holidays.view')->prefix('holidays')->name('holidays.')->group(function () {
+        Route::get('/', [HolidayController::class, 'index'])->name('index');
+        Route::get('data', [HolidayController::class, 'data'])->name('data');
+        Route::get('create', [HolidayController::class, 'create'])->name('create');
+        Route::post('/', [HolidayController::class, 'store'])->name('store');
+        Route::get('{holiday}/edit', [HolidayController::class, 'edit'])->name('edit');
+        Route::put('{holiday}', [HolidayController::class, 'update'])->name('update');
+        Route::delete('{holiday}', [HolidayController::class, 'destroy'])->name('destroy');
+    });
+
+    Route::middleware('permission:birthdays.view')->prefix('birthdays')->name('birthdays.')->group(function () {
+        Route::get('/', [BirthdayController::class, 'index'])->name('index');
+        Route::get('data', [BirthdayController::class, 'data'])->name('data');
+        Route::get('create', [BirthdayController::class, 'create'])->name('create');
+        Route::post('/', [BirthdayController::class, 'store'])->name('store');
+        Route::get('{birthday}/edit', [BirthdayController::class, 'edit'])->name('edit');
+        Route::put('{birthday}', [BirthdayController::class, 'update'])->name('update');
+        Route::delete('{birthday}', [BirthdayController::class, 'destroy'])->name('destroy');
     });
 
     Route::middleware('permission:milk-rates.view')->prefix('milk-rates')->name('milk-rates.')->group(function () {

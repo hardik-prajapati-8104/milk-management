@@ -67,6 +67,24 @@
         </a>
         @endcan
 
+        @can('calendar.view')
+        <a class="nav-link {{ request()->routeIs('admin.calendar.*') ? 'active' : '' }}" href="{{ route('admin.calendar.index') }}">
+            <i class="bi bi-calendar3 me-2"></i> Calendar
+        </a>
+        @endcan
+
+        @can('holidays.view')
+        <a class="nav-link {{ request()->routeIs('admin.holidays.*') ? 'active' : '' }}" href="{{ route('admin.holidays.index') }}">
+            <i class="bi bi-calendar-heart me-2"></i> Holidays
+        </a>
+        @endcan
+
+        @can('birthdays.view')
+        <a class="nav-link {{ request()->routeIs('admin.birthdays.*') ? 'active' : '' }}" href="{{ route('admin.birthdays.index') }}">
+            <i class="bi bi-gift me-2"></i> Birthdays
+        </a>
+        @endcan
+
         @can('milk-rates.view')
         <a class="nav-link {{ request()->routeIs('admin.milk-rates.*') ? 'active' : '' }}" href="{{ route('admin.milk-rates.index') }}">
             <i class="bi bi-cash-coin me-2"></i> Milk Rates

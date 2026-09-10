@@ -15,7 +15,7 @@ class Customer extends Model
 
     protected $fillable = [
         'consumer_id', 'name', 'photo', 'mobile', 'alternative_mobile', 'email',
-        'address', 'village_id', 'area_id', 'city', 'state', 'pincode', 'route_id',
+        'date_of_birth', 'address', 'village_id', 'area_id', 'city', 'state', 'pincode', 'route_id',
         'milk_type', 'morning_rate', 'evening_rate', 'default_qty_morning', 'default_qty_evening',
         'customer_category_id', 'status', 'notes', 'joining_date',
         'identity_proof_type', 'identity_proof_number', 'qr_code_path', 'barcode',
@@ -26,6 +26,7 @@ class Customer extends Model
     {
         return [
             'joining_date' => 'date',
+            'date_of_birth' => 'date',
             'morning_rate' => 'decimal:2',
             'evening_rate' => 'decimal:2',
             'default_qty_morning' => 'decimal:3',

@@ -13,7 +13,7 @@ class Employee extends Model
 
     protected $fillable = [
         'user_id', 'employee_id', 'name', 'photo', 'designation', 'mobile',
-        'address', 'salary', 'joining_date', 'status',
+        'date_of_birth', 'address', 'salary', 'joining_date', 'status',
     ];
 
     protected function casts(): array
@@ -21,6 +21,7 @@ class Employee extends Model
         return [
             'salary' => 'decimal:2',
             'joining_date' => 'date',
+            'date_of_birth' => 'date',
         ];
     }
 
