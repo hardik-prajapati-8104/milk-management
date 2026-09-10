@@ -144,6 +144,12 @@
             <i class="bi bi-gear me-2"></i> Settings
         </a>
         @endcan
+
+        @can('activity-logs.view')
+         <a class="nav-link {{ request()->routeIs('admin.audit.*') ? 'active' : '' }}" href="{{ route('admin.audit.index') }}">
+             <i class="bi bi-shield-check me-2"></i> Activity & Audit
+         </a>
+         @endcan
     </nav>
 </aside>
 

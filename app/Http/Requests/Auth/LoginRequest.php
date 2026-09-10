@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Auth;
 
+use App\Models\LoginLog;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -31,13 +32,18 @@ class LoginRequest extends FormRequest
         if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
+            LoginLog::record('failed', email: $this->string('email')->toString(), reason: 'invalid_credentials', request: $this);
+
             throw ValidationException::withMessages([
                 'email' => trans('auth.failed'),
             ]);
         }
 
         if (! Auth::user()->isActive()) {
+            $inactiveUser = Auth::user();
             Auth::logout();
+
+            LoginLog::record('failed', $inactiveUser, reason: 'account_inactive', request: $this);
 
             throw ValidationException::withMessages([
                 'email' => 'Your account is inactive. Please contact the administrator.',
@@ -56,6 +62,8 @@ class LoginRequest extends FormRequest
         event(new Lockout($this));
 
         $seconds = RateLimiter::availableIn($this->throttleKey());
+
+        LoginLog::record('locked_out', email: $this->string('email')->toString(), reason: 'too_many_attempts', request: $this);
 
         throw ValidationException::withMessages([
             'email' => trans('auth.throttle', [

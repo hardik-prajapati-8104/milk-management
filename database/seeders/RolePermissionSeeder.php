@@ -34,7 +34,7 @@ class RolePermissionSeeder extends Seeder
         'settings' => ['view', 'edit'],
         'users' => ['view', 'create', 'edit', 'delete'],
         'roles' => ['view', 'create', 'edit', 'delete'],
-        'activity-logs' => ['view'],
+        'activity-logs' => ['view', 'export', 'manage'],
     ];
 
     /**
@@ -59,7 +59,7 @@ class RolePermissionSeeder extends Seeder
             'milk-stock' => ['view', 'create'],
             'cash-sales' => ['view', 'create', 'edit'],
             'reports' => ['view', 'export'],
-            'activity-logs' => ['view'],
+            'activity-logs' => ['view', 'export'],
         ],
         'Accountant' => [
             'dashboard' => ['view'],
@@ -71,6 +71,7 @@ class RolePermissionSeeder extends Seeder
             'milk-stock' => ['view'],
             'cash-sales' => ['view'],
             'reports' => ['view', 'export'],
+            'activity-logs' => ['view', 'export'],
         ],
         'Operator' => [
             'dashboard' => ['view'],
@@ -78,12 +79,14 @@ class RolePermissionSeeder extends Seeder
             'daily-entries' => ['view', 'create', 'edit'],
             'cash-sales' => ['view', 'create'],
             'payments' => ['view', 'create'],
+            'activity-logs' => ['view', 'export'],
         ],
         'Delivery Boy' => [
             'dashboard' => ['view'],
             'customers' => ['view'],
             'daily-entries' => ['view', 'create', 'edit'],
             'payments' => ['view', 'create'],
+            'activity-logs' => ['view', 'export'],
         ],
     ];
 

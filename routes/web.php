@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AuditController;
 use App\Http\Controllers\Admin\BillController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\DailyEntryController;
@@ -227,4 +228,40 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         Route::get('/', [SettingController::class, 'index'])->name('index');
         Route::put('{group}', [SettingController::class, 'update'])->name('update');
     });
+
+    /*
+    |----------------------------------------------------------------------
+    | Activity & Audit
+    |----------------------------------------------------------------------
+    | Covers Activity Logs, Login Logs, Error Logs, API Logs, Audit Trail,
+    | User Timeline, Admin Actions, IP Tracking, Browser & Device Info.
+    | Every route sits behind 'activity-logs.view' (enforced again in the
+    | controller constructor); export/purge additionally check the
+    | ActivityLogPolicy's export/manage abilities.
+    */
+    Route::middleware('permission:activity-logs.view')->prefix('audit')->name('audit.')->group(function () {
+        Route::get('/', [AuditController::class, 'index'])->name('index');
+
+        Route::get('data', [AuditController::class, 'activityData'])->name('data');
+        Route::get('audit-trail-data', [AuditController::class, 'auditTrailData'])->name('audit-trail-data');
+        Route::get('login-data', [AuditController::class, 'loginData'])->name('login-data');
+        Route::get('error-data', [AuditController::class, 'errorData'])->name('error-data');
+        Route::get('api-data', [AuditController::class, 'apiData'])->name('api-data');
+        Route::get('admin-actions-data', [AuditController::class, 'adminActionsData'])->name('admin-actions-data');
+        Route::get('ip-data', [AuditController::class, 'ipData'])->name('ip-data');
+        Route::get('browser-stats', [AuditController::class, 'browserStats'])->name('browser-stats');
+        Route::get('device-stats', [AuditController::class, 'deviceStats'])->name('device-stats');
+
+        Route::get('timeline/{user}', [AuditController::class, 'userTimeline'])->name('timeline');
+        Route::get('timeline-data', [AuditController::class, 'timelineData'])->name('timeline-data');
+
+        Route::get('entry/{log}', [AuditController::class, 'show'])->name('show');
+        Route::get('api-entry/{apiLog}', [AuditController::class, 'apiShow'])->name('api-show');
+        Route::get('error-entry/{error}', [AuditController::class, 'errorShow'])->name('error-show');
+        Route::post('error/{error}/resolve', [AuditController::class, 'resolveError'])->name('error-resolve');
+
+        Route::post('purge', [AuditController::class, 'purge'])->name('purge');
+        Route::get('export/{type}', [AuditController::class, 'export'])->name('export');
+    });
+    
 });

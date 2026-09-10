@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Models\ActivityLog;
+use App\Models\LoginLog;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,6 +30,7 @@ class AuthenticatedSessionController extends Controller
         ])->saveQuietly();
 
         ActivityLog::record('login', $user, description: 'User logged in');
+        LoginLog::record('success', $user, request: $request);
 
         return redirect()->intended(route('admin.dashboard'));
     }
@@ -37,6 +39,7 @@ class AuthenticatedSessionController extends Controller
     {
         if ($user = Auth::user()) {
             ActivityLog::record('logout', $user, description: 'User logged out');
+            LoginLog::record('logged_out', $user, request: $request);
         }
 
         Auth::guard('web')->logout();

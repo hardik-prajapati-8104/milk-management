@@ -35,6 +35,9 @@
                         <td><span class="badge text-bg-{{ ['active'=>'success','inactive'=>'secondary','suspended'=>'danger'][$user->status] }}">{{ ucfirst($user->status) }}</span></td>
                         <td class="text-muted small">{{ $user->last_login_at?->diffForHumans() ?? 'Never' }}</td>
                         <td class="text-end">
+                            @can('activity-logs.view')
+                             <a href="{{ route('admin.audit.timeline', $user) }}" class="btn btn-sm btn-outline-info" title="Activity Timeline"><i class="bi bi-clock-history"></i></a>
+                           @endcan
                             @can('update', $user)
                             <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-sm btn-outline-primary"><i class="bi bi-pencil"></i></a>
                             @endcan

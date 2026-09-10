@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Middleware\LogActivity;
+use App\Http\Middleware\LogApiActivity;
+use App\Models\ErrorLog;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -22,9 +25,22 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
 
         $middleware->web(append: [
-            \App\Http\Middleware\LogActivity::class,
+            LogActivity::class,
         ]);
+         $middleware->api(append: [
+             LogApiActivity::class,
+         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
+        // Feed every reportable exception into the Error Logs feature (Activity & Audit).
+        // Laravel already excludes noisy/expected exceptions (validation, 404, 419, auth)
+        // from being "reported" by default, so this stays focused on real errors.
+        $exceptions->report(function (\Throwable $e) {
+            try {
+                ErrorLog::record($e);
+            } catch (\Throwable $loggingFailure) {
+                // Never let audit logging itself break error handling.
+            }
+        });
     })->create();
