@@ -1,17 +1,17 @@
 @extends('layouts.app')
 
-@section('title', __('app.holidays.title'))
+@section('title', 'Holidays')
 
 @section('content')
 <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
-    <h4 class="mb-0">{{ __('app.holidays.title') }}</h4>
+    <h4 class="mb-0">Holidays</h4>
     <div class="d-flex gap-2">
         <a href="{{ route('admin.calendar.index') }}" class="btn btn-outline-secondary btn-sm">
-            <i class="bi bi-calendar3 me-1"></i> {{ __('app.calendar.back_to_calendar') }}
+            <i class="bi bi-calendar3 me-1"></i> Back to Calendar
         </a>
         @can('create', App\Models\Holiday::class)
         <a href="{{ route('admin.holidays.create') }}" class="btn btn-success btn-sm">
-            <i class="bi bi-plus-lg me-1"></i> {{ __('app.holidays.new_holiday') }}
+            <i class="bi bi-plus-lg me-1"></i> New Holiday
         </a>
         @endcan
     </div>
@@ -23,11 +23,11 @@
             <table class="table table-hover align-middle w-100" id="holidaysTable">
                 <thead>
                     <tr>
-                        <th>{{ __('app.common.name') }}</th>
-                        <th>{{ __('app.common.date') }}</th>
-                        <th>{{ __('app.common.type') }}</th>
-                        <th>{{ __('app.holidays.column_recurrence') }}</th>
-                        <th class="text-end">{{ __('app.common.actions') }}</th>
+                        <th>Name</th>
+                        <th>Date</th>
+                        <th>Type</th>
+                        <th>Recurrence</th>
+                        <th class="text-end">Actions</th>
                     </tr>
                 </thead>
             </table>
@@ -58,8 +58,8 @@ $(function () {
         e.preventDefault();
         const form = this;
         Swal.fire({
-            title: '{{ __('app.holidays.delete_confirm_title') }}', icon: 'warning', showCancelButton: true,
-            confirmButtonText: '{{ __('app.common.confirm_delete_button') }}', confirmButtonColor: '#dc3545',
+            title: 'Delete this holiday?', icon: 'warning', showCancelButton: true,
+            confirmButtonText: 'Yes, delete', confirmButtonColor: '#dc3545',
         }).then((r) => { if (r.isConfirmed) form.submit(); });
     });
 });

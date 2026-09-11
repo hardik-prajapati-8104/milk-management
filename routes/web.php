@@ -22,6 +22,7 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SupplierController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\LanguageController;
 use Illuminate\Support\Facades\Route;
 
 require __DIR__.'/auth.php';
@@ -31,6 +32,8 @@ require __DIR__.'/auth.php';
 Route::get('/', function () {
     return 'Claude Project is working!';
 });
+ 
+Route::get('language/{locale}', [LanguageController::class, 'switch'])->name('language.switch');
  
 
 /*

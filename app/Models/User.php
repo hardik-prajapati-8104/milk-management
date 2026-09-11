@@ -24,6 +24,7 @@ class User extends Authenticatable
         'photo',
         'password',
         'status',
+        'locale',
         'two_factor_enabled',
         'route_id',
     ];

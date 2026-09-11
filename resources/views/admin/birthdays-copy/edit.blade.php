@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('title', __('app.birthdays.edit_birthday'))
+@section('title', 'Edit Birthday')
 
 @section('content')
 <div class="mb-3">
-    <h4 class="mb-0">{{ __('app.birthdays.edit_birthday') }}</h4>
+    <h4 class="mb-0">Edit Birthday</h4>
 </div>
 
 <form action="{{ route('admin.birthdays.update', $birthday) }}" method="POST">

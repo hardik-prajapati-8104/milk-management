@@ -18,28 +18,28 @@
 
 @section('content')
 <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 gap-2">
-    <h4 class="mb-0"><i class="bi bi-calendar3 me-2"></i>{{ __('app.calendar.title') }}</h4>
+    <h4 class="mb-0"><i class="bi bi-calendar3 me-2"></i>Calendar</h4>
     <div class="d-flex gap-2 flex-wrap">
         @can('holidays.view')
         <a href="{{ route('admin.holidays.index') }}" class="btn btn-outline-secondary btn-sm">
-            <i class="bi bi-calendar-heart me-1"></i> {{ __('app.calendar.manage_holidays') }}
+            <i class="bi bi-calendar-heart me-1"></i> Manage Holidays
         </a>
         @endcan
         @can('birthdays.view')
         <a href="{{ route('admin.birthdays.index') }}" class="btn btn-outline-secondary btn-sm">
-            <i class="bi bi-gift me-1"></i> {{ __('app.calendar.manage_birthdays') }}
+            <i class="bi bi-gift me-1"></i> Manage Birthdays
         </a>
         @endcan
         @can('create', App\Models\CalendarEvent::class)
         <div class="dropdown">
             <button class="btn btn-success btn-sm dropdown-toggle" data-bs-toggle="dropdown">
-                <i class="bi bi-plus-lg me-1"></i> {{ __('app.calendar.new') }}
+                <i class="bi bi-plus-lg me-1"></i> New
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item js-new" href="#" data-type="event"><i class="bi bi-calendar-event me-2"></i>{{ __('app.calendar.event') }}</a></li>
-                <li><a class="dropdown-item js-new" href="#" data-type="meeting"><i class="bi bi-people me-2"></i>{{ __('app.calendar.meeting') }}</a></li>
-                <li><a class="dropdown-item js-new" href="#" data-type="reminder"><i class="bi bi-bell me-2"></i>{{ __('app.calendar.reminder') }}</a></li>
-                <li><a class="dropdown-item js-new" href="#" data-type="task"><i class="bi bi-check2-square me-2"></i>{{ __('app.calendar.task') }}</a></li>
+                <li><a class="dropdown-item js-new" href="#" data-type="event"><i class="bi bi-calendar-event me-2"></i>Event</a></li>
+                <li><a class="dropdown-item js-new" href="#" data-type="meeting"><i class="bi bi-people me-2"></i>Meeting</a></li>
+                <li><a class="dropdown-item js-new" href="#" data-type="reminder"><i class="bi bi-bell me-2"></i>Reminder</a></li>
+                <li><a class="dropdown-item js-new" href="#" data-type="task"><i class="bi bi-check2-square me-2"></i>Task</a></li>
             </ul>
         </div>
         @endcan
@@ -53,31 +53,31 @@
                 <div class="d-flex flex-wrap align-items-center gap-3 small">
                     <div class="form-check form-check-inline mb-0">
                         <input class="form-check-input js-type-filter" type="checkbox" value="event" id="fltEvent" checked>
-                        <label class="form-check-label" for="fltEvent"><span class="legend-dot" style="background:#0d6efd"></span>{{ __('app.calendar.events') }}</label>
+                        <label class="form-check-label" for="fltEvent"><span class="legend-dot" style="background:#0d6efd"></span>Events</label>
                     </div>
                     <div class="form-check form-check-inline mb-0">
                         <input class="form-check-input js-type-filter" type="checkbox" value="meeting" id="fltMeeting" checked>
-                        <label class="form-check-label" for="fltMeeting"><span class="legend-dot" style="background:#6f42c1"></span>{{ __('app.calendar.meetings') }}</label>
+                        <label class="form-check-label" for="fltMeeting"><span class="legend-dot" style="background:#6f42c1"></span>Meetings</label>
                     </div>
                     <div class="form-check form-check-inline mb-0">
                         <input class="form-check-input js-type-filter" type="checkbox" value="reminder" id="fltReminder" checked>
-                        <label class="form-check-label" for="fltReminder"><span class="legend-dot" style="background:#fd7e14"></span>{{ __('app.calendar.reminders') }}</label>
+                        <label class="form-check-label" for="fltReminder"><span class="legend-dot" style="background:#fd7e14"></span>Reminders</label>
                     </div>
                     <div class="form-check form-check-inline mb-0">
                         <input class="form-check-input js-type-filter" type="checkbox" value="task" id="fltTask" checked>
-                        <label class="form-check-label" for="fltTask"><span class="legend-dot" style="background:#198754"></span>{{ __('app.calendar.tasks') }}</label>
+                        <label class="form-check-label" for="fltTask"><span class="legend-dot" style="background:#198754"></span>Tasks</label>
                     </div>
                     <div class="form-check form-check-inline mb-0">
                         <input class="form-check-input js-type-filter" type="checkbox" value="holiday" id="fltHoliday" checked>
-                        <label class="form-check-label" for="fltHoliday"><span class="legend-dot" style="background:#dc3545"></span>{{ __('app.nav.holidays') }}</label>
+                        <label class="form-check-label" for="fltHoliday"><span class="legend-dot" style="background:#dc3545"></span>Holidays</label>
                     </div>
                     <div class="form-check form-check-inline mb-0">
                         <input class="form-check-input js-type-filter" type="checkbox" value="birthday" id="fltBirthday" checked>
-                        <label class="form-check-label" for="fltBirthday"><span class="legend-dot" style="background:#d63384"></span>{{ __('app.nav.birthdays') }}</label>
+                        <label class="form-check-label" for="fltBirthday"><span class="legend-dot" style="background:#d63384"></span>Birthdays</label>
                     </div>
                     <div class="form-check form-check-inline mb-0 ms-auto">
                         <input class="form-check-input" type="checkbox" id="fltMine">
-                        <label class="form-check-label" for="fltMine">{{ __('app.calendar.my_items_only') }}</label>
+                        <label class="form-check-label" for="fltMine">My items only</label>
                     </div>
                 </div>
             </div>
@@ -92,33 +92,33 @@
 
     <div class="col-12 col-xl-3">
         <div class="card shadow-sm mb-3">
-            <div class="card-header bg-white"><i class="bi bi-gift text-danger me-1"></i> {{ __('app.calendar.upcoming_birthdays') }}</div>
+            <div class="card-header bg-white"><i class="bi bi-gift text-danger me-1"></i> Upcoming Birthdays</div>
             <div class="card-body">
                 @forelse($upcomingBirthdays as $b)
                     <div class="upcoming-item">
                         <div class="fw-semibold">{{ $b['name'] }}</div>
-                        <div class="text-muted days">{{ $b['date']->format('d M') }} &middot; {{ __('app.calendar.turning') }} {{ $b['turning'] }} &middot;
-                            {{ $b['days_until'] === 0 ? __('app.calendar.today') : $b['days_until'] . ' ' . __('app.calendar.days') }}
+                        <div class="text-muted days">{{ $b['date']->format('d M') }} &middot; turning {{ $b['turning'] }} &middot;
+                            {{ $b['days_until'] === 0 ? 'Today!' : $b['days_until'] . ' day(s)' }}
                         </div>
                     </div>
                 @empty
-                    <p class="text-muted small mb-0">{{ __('app.calendar.no_upcoming_birthdays') }}</p>
+                    <p class="text-muted small mb-0">No birthdays in the next 30 days.</p>
                 @endforelse
             </div>
         </div>
 
         <div class="card shadow-sm">
-            <div class="card-header bg-white"><i class="bi bi-calendar-heart text-danger me-1"></i> {{ __('app.calendar.upcoming_holidays') }}</div>
+            <div class="card-header bg-white"><i class="bi bi-calendar-heart text-danger me-1"></i> Upcoming Holidays</div>
             <div class="card-body">
                 @forelse($upcomingHolidays as $h)
                     <div class="upcoming-item">
                         <div class="fw-semibold">{{ $h['name'] }}</div>
                         <div class="text-muted days">{{ $h['date']->format('d M Y') }} &middot; {{ ucfirst($h['type']) }} &middot;
-                            {{ $h['days_until'] === 0 ? __('app.calendar.today') : $h['days_until'] . ' ' . __('app.calendar.days') }}
+                            {{ $h['days_until'] === 0 ? 'Today!' : $h['days_until'] . ' day(s)' }}
                         </div>
                     </div>
                 @empty
-                    <p class="text-muted small mb-0">{{ __('app.calendar.no_upcoming_holidays') }}</p>
+                    <p class="text-muted small mb-0">No holidays in the next 60 days.</p>
                 @endforelse
             </div>
         </div>
@@ -133,7 +133,7 @@
             <input type="hidden" name="_method" id="formMethod" value="POST">
             <input type="hidden" id="eventId">
             <div class="modal-header">
-                <h5 class="modal-title" id="eventModalTitle">{{ __('app.calendar.new_event') }}</h5>
+                <h5 class="modal-title" id="eventModalTitle">New Event</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
             <div class="modal-body">
@@ -141,81 +141,81 @@
 
                 <div class="row g-3">
                     <div class="col-md-4">
-                        <label class="form-label">{{ __('app.calendar.field_type') }}</label>
+                        <label class="form-label">Type</label>
                         <select class="form-select" name="type" id="fType">
-                            <option value="event">{{ __('app.calendar.event') }}</option>
-                            <option value="meeting">{{ __('app.calendar.meeting') }}</option>
-                            <option value="reminder">{{ __('app.calendar.reminder') }}</option>
-                            <option value="task">{{ __('app.calendar.task') }}</option>
+                            <option value="event">Event</option>
+                            <option value="meeting">Meeting</option>
+                            <option value="reminder">Reminder</option>
+                            <option value="task">Task</option>
                         </select>
                     </div>
                     <div class="col-md-8">
-                        <label class="form-label">{{ __('app.calendar.field_title') }} <span class="text-danger">*</span></label>
+                        <label class="form-label">Title <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" name="title" id="fTitle" required maxlength="191">
                     </div>
 
                     <div class="col-12">
-                        <label class="form-label">{{ __('app.calendar.field_description') }}</label>
+                        <label class="form-label">Description</label>
                         <textarea class="form-control" name="description" id="fDescription" rows="2" maxlength="2000"></textarea>
                     </div>
 
                     <div class="col-md-6">
-                        <label class="form-label">{{ __('app.calendar.field_start') }} <span class="text-danger">*</span></label>
+                        <label class="form-label">Start <span class="text-danger">*</span></label>
                         <input type="datetime-local" class="form-control" name="start_datetime" id="fStart" required>
                     </div>
                     <div class="col-md-6">
-                        <label class="form-label">{{ __('app.calendar.field_end') }}</label>
+                        <label class="form-label">End</label>
                         <input type="datetime-local" class="form-control" name="end_datetime" id="fEnd">
                     </div>
 
                     <div class="col-md-4">
                         <div class="form-check mt-4 pt-1">
                             <input class="form-check-input" type="checkbox" name="all_day" id="fAllDay" value="1">
-                            <label class="form-check-label" for="fAllDay">{{ __('app.calendar.field_all_day') }}</label>
+                            <label class="form-check-label" for="fAllDay">All day</label>
                         </div>
                     </div>
                     <div class="col-md-4">
-                        <label class="form-label">{{ __('app.calendar.field_priority') }}</label>
+                        <label class="form-label">Priority</label>
                         <select class="form-select" name="priority" id="fPriority">
-                            <option value="low">{{ __('app.calendar.priority_low') }}</option>
-                            <option value="medium" selected>{{ __('app.calendar.priority_medium') }}</option>
-                            <option value="high">{{ __('app.calendar.priority_high') }}</option>
+                            <option value="low">Low</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="high">High</option>
                         </select>
                     </div>
                     <div class="col-md-4">
-                        <label class="form-label">{{ __('app.calendar.field_status') }}</label>
+                        <label class="form-label">Status</label>
                         <select class="form-select" name="status" id="fStatus">
-                            <option value="pending">{{ __('app.calendar.status_pending') }}</option>
-                            <option value="in_progress">{{ __('app.calendar.status_in_progress') }}</option>
-                            <option value="completed">{{ __('app.calendar.status_completed') }}</option>
-                            <option value="cancelled">{{ __('app.calendar.status_cancelled') }}</option>
+                            <option value="pending">Pending</option>
+                            <option value="in_progress">In Progress</option>
+                            <option value="completed">Completed</option>
+                            <option value="cancelled">Cancelled</option>
                         </select>
                     </div>
 
                     <div class="col-md-6">
-                        <label class="form-label">{{ __('app.calendar.field_location') }}</label>
+                        <label class="form-label">Location</label>
                         <input type="text" class="form-control" name="location" id="fLocation" maxlength="191">
                     </div>
                     <div class="col-md-3">
-                        <label class="form-label">{{ __('app.calendar.field_color') }}</label>
+                        <label class="form-label">Color</label>
                         <input type="color" class="form-control form-control-color w-100" name="color" id="fColor" value="#0d6efd">
                     </div>
                     <div class="col-md-3">
-                        <label class="form-label">{{ __('app.calendar.field_reminder_before') }}</label>
+                        <label class="form-label">Remind before (min)</label>
                         <input type="number" min="0" max="43200" class="form-control" name="reminder_minutes_before" id="fReminder">
                     </div>
 
                     <div class="col-md-6">
-                        <label class="form-label">{{ __('app.calendar.field_assigned_to') }}</label>
+                        <label class="form-label">Assigned to</label>
                         <select class="form-select" name="assigned_to" id="fAssignedTo">
-                            <option value="">{{ __('app.calendar.field_unassigned') }}</option>
+                            <option value="">— Unassigned —</option>
                             @foreach($users as $u)
                                 <option value="{{ $u->id }}">{{ $u->name }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="col-md-6 type-field" id="fieldAttendees" data-types="meeting">
-                        <label class="form-label">{{ __('app.calendar.field_attendees') }}</label>
+                        <label class="form-label">Attendees</label>
                         <select class="form-select" name="attendees[]" id="fAttendees" multiple>
                             @foreach($users as $u)
                                 <option value="{{ $u->id }}">{{ $u->name }}</option>
@@ -226,20 +226,20 @@
                     <div class="col-12">
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" name="is_recurring" id="fRecurring" value="1">
-                            <label class="form-check-label" for="fRecurring">{{ __('app.calendar.field_repeats') }}</label>
+                            <label class="form-check-label" for="fRecurring">Repeats</label>
                         </div>
                     </div>
                     <div class="col-md-4 type-field" id="fieldRecurType" data-recurring="1">
-                        <label class="form-label">{{ __('app.calendar.field_repeat') }}</label>
+                        <label class="form-label">Repeat</label>
                         <select class="form-select" name="recurrence_type" id="fRecurType">
-                            <option value="daily">{{ __('app.calendar.repeat_daily') }}</option>
-                            <option value="weekly">{{ __('app.calendar.repeat_weekly') }}</option>
-                            <option value="monthly">{{ __('app.calendar.repeat_monthly') }}</option>
-                            <option value="yearly">{{ __('app.calendar.repeat_yearly') }}</option>
+                            <option value="daily">Daily</option>
+                            <option value="weekly">Weekly</option>
+                            <option value="monthly">Monthly</option>
+                            <option value="yearly">Yearly</option>
                         </select>
                     </div>
                     <div class="col-md-4 type-field" id="fieldRecurEnd" data-recurring="1">
-                        <label class="form-label">{{ __('app.calendar.field_repeat_until') }}</label>
+                        <label class="form-label">Repeat until</label>
                         <input type="date" class="form-control" name="recurrence_end_date" id="fRecurEnd">
                     </div>
                 </div>
@@ -247,16 +247,16 @@
             <div class="modal-footer justify-content-between">
                 <div>
                     <button type="button" class="btn btn-outline-danger btn-sm d-none" id="btnDelete">
-                        <i class="bi bi-trash me-1"></i> {{ __('app.common.delete') }}
+                        <i class="bi bi-trash me-1"></i> Delete
                     </button>
                     <div class="btn-group btn-group-sm d-none" id="statusQuickActions">
-                        <button type="button" class="btn btn-outline-success js-mark-status" data-status="completed">{{ __('app.calendar.mark_complete') }}</button>
-                        <button type="button" class="btn btn-outline-secondary js-mark-status" data-status="in_progress">{{ __('app.calendar.status_in_progress') }}</button>
+                        <button type="button" class="btn btn-outline-success js-mark-status" data-status="completed">Mark Complete</button>
+                        <button type="button" class="btn btn-outline-secondary js-mark-status" data-status="in_progress">In Progress</button>
                     </div>
                 </div>
                 <div>
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">{{ __('app.common.cancel') }}</button>
-                    <button type="submit" class="btn btn-success"><i class="bi bi-check-lg me-1"></i> {{ __('app.common.save') }}</button>
+                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success"><i class="bi bi-check-lg me-1"></i> Save</button>
                 </div>
             </div>
         </form>
@@ -269,8 +269,6 @@
 <script>
 $(function () {
     const canEdit = @json(auth()->user()->can('create', App\Models\CalendarEvent::class));
-    const i18n = @json(__('app.calendar'));
-    const t = (key) => i18n[key] ?? key;
     const feedUrl = "{{ route('admin.calendar.feed') }}";
     const storeUrl = "{{ route('admin.calendar.store') }}";
     const showUrlBase = "{{ url('admin/calendar') }}";
@@ -315,7 +313,7 @@ $(function () {
             if (!canEdit) return;
             resetForm();
             $('#fStart').val(info.dateStr.length > 10 ? info.dateStr.slice(0, 16) : info.dateStr + 'T09:00');
-            $('#eventModalTitle').text(t('new_event'));
+            $('#eventModalTitle').text('New Event');
             eventModal.show();
         },
         eventDrop: function (info) { persistReschedule(info); },
@@ -348,7 +346,7 @@ $(function () {
             },
         }).fail(function () {
             info.revert();
-            Swal.fire(t('reschedule_failed') || 'Could not reschedule', '', 'error');
+            Swal.fire('Could not reschedule', '', 'error');
         });
     }
 
@@ -369,7 +367,7 @@ $(function () {
         e.preventDefault();
         resetForm();
         $('#fType').val($(this).data('type'));
-        $('#eventModalTitle').text(t('new_' + $(this).data('type')));
+        $('#eventModalTitle').text('New ' + $(this).data('type').charAt(0).toUpperCase() + $(this).data('type').slice(1));
         toggleTypeFields();
         eventModal.show();
     });
@@ -395,7 +393,7 @@ $(function () {
             $('#fRecurring').prop('checked', !!event.is_recurring);
             $('#fRecurType').val(event.recurrence_type);
             $('#fRecurEnd').val(event.recurrence_end_date ? event.recurrence_end_date.slice(0, 10) : '');
-            $('#eventModalTitle').text(t('edit') + ' - ' + t(event.type));
+            $('#eventModalTitle').text('Edit ' + event.type.charAt(0).toUpperCase() + event.type.slice(1));
             $('#btnDelete').removeClass('d-none');
             toggleTypeFields();
             toggleRecurFields();
@@ -417,9 +415,9 @@ $(function () {
         }).done(function () {
             eventModal.hide();
             calendar.refetchEvents();
-            Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: t('saved_toast'), showConfirmButton: false, timer: 1500 });
+            Swal.fire({ toast: true, position: 'top-end', icon: 'success', title: 'Saved', showConfirmButton: false, timer: 1500 });
         }).fail(function (xhr) {
-            const errors = xhr.responseJSON && xhr.responseJSON.errors ? xhr.responseJSON.errors : { error: [t('save_failed') || 'Something went wrong.'] };
+            const errors = xhr.responseJSON && xhr.responseJSON.errors ? xhr.responseJSON.errors : { error: ['Something went wrong.'] };
             $('#formErrors').removeClass('d-none').html(Object.values(errors).flat().join('<br>'));
         });
     });
@@ -428,8 +426,8 @@ $(function () {
         const id = $('#eventId').val();
         if (!id) return;
         Swal.fire({
-            title: t('delete_item_title'), icon: 'warning', showCancelButton: true,
-            confirmButtonText: '{{ __('app.common.confirm_delete_button') }}', confirmButtonColor: '#dc3545',
+            title: 'Delete this item?', icon: 'warning', showCancelButton: true,
+            confirmButtonText: 'Yes, delete', confirmButtonColor: '#dc3545',
         }).then((r) => {
             if (!r.isConfirmed) return;
             $.ajax({

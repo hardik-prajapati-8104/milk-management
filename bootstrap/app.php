@@ -2,6 +2,7 @@
 
 use App\Http\Middleware\LogActivity;
 use App\Http\Middleware\LogApiActivity;
+use App\Http\Middleware\SetLocale;
 use App\Models\ErrorLog;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -25,6 +26,7 @@ return Application::configure(basePath: dirname(__DIR__))
         ]);
 
         $middleware->web(append: [
+            SetLocale::class,
             LogActivity::class,
         ]);
          $middleware->api(append: [

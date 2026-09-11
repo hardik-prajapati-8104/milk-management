@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-bs-theme="light">
+<html lang="{{ app()->getLocale() }}" data-bs-theme="light" class="{{ config('languages.supported.'.app()->getLocale().'.font_class', 'lang-latin') }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap">
 
     <style>
         :root {
@@ -17,7 +18,11 @@
             --brand-dark: #1b5e20;
             --sidebar-width: 260px;
         }
-        body { background: var(--bs-tertiary-bg); }
+        body { background: var(--bs-tertiary-bg); font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        /* Gujarati/Devanagari render poorly (thin, broken conjuncts) in default UI fonts, so the
+           whole document switches its body font whenever the active locale needs one of these scripts. */
+        html.lang-gujarati body { font-family: 'Noto Sans Gujarati', 'Inter', sans-serif; }
+        html.lang-devanagari body { font-family: 'Noto Sans Devanagari', 'Inter', sans-serif; }
         .app-sidebar {
             width: var(--sidebar-width);
             min-height: 100vh;
@@ -52,120 +57,120 @@
     </div>
     <nav class="nav flex-column pb-4">
         <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">
-            <i class="bi bi-speedometer2 me-2"></i> Dashboard
+            <i class="bi bi-speedometer2 me-2"></i> {{ __('app.nav.dashboard') }}
         </a>
 
         @can('customers.view')
         <a class="nav-link {{ request()->routeIs('admin.customers.*') ? 'active' : '' }}" href="{{ route('admin.customers.index') }}">
-            <i class="bi bi-people me-2"></i> Customers
+            <i class="bi bi-people me-2"></i> {{ __('app.nav.customers') }}
         </a>
         @endcan
 
         @can('daily-entries.view')
         <a class="nav-link {{ request()->routeIs('admin.daily-entries.*') ? 'active' : '' }}" href="{{ route('admin.daily-entries.index') }}">
-            <i class="bi bi-journal-check me-2"></i> Daily Entries
+            <i class="bi bi-journal-check me-2"></i> {{ __('app.nav.daily_entries') }}
         </a>
         @endcan
 
         @can('calendar.view')
         <a class="nav-link {{ request()->routeIs('admin.calendar.*') ? 'active' : '' }}" href="{{ route('admin.calendar.index') }}">
-            <i class="bi bi-calendar3 me-2"></i> Calendar
+            <i class="bi bi-calendar3 me-2"></i> {{ __('app.nav.calendar') }}
         </a>
         @endcan
 
         @can('holidays.view')
         <a class="nav-link {{ request()->routeIs('admin.holidays.*') ? 'active' : '' }}" href="{{ route('admin.holidays.index') }}">
-            <i class="bi bi-calendar-heart me-2"></i> Holidays
+            <i class="bi bi-calendar-heart me-2"></i> {{ __('app.nav.holidays') }}
         </a>
         @endcan
 
         @can('birthdays.view')
         <a class="nav-link {{ request()->routeIs('admin.birthdays.*') ? 'active' : '' }}" href="{{ route('admin.birthdays.index') }}">
-            <i class="bi bi-gift me-2"></i> Birthdays
+            <i class="bi bi-gift me-2"></i> {{ __('app.nav.birthdays') }}
         </a>
         @endcan
 
         @can('milk-rates.view')
         <a class="nav-link {{ request()->routeIs('admin.milk-rates.*') ? 'active' : '' }}" href="{{ route('admin.milk-rates.index') }}">
-            <i class="bi bi-cash-coin me-2"></i> Milk Rates
+            <i class="bi bi-cash-coin me-2"></i> {{ __('app.nav.milk_rates') }}
         </a>
         @endcan
 
         @can('milk-purchases.view')
         <a class="nav-link {{ request()->routeIs('admin.milk-purchases.*') ? 'active' : '' }}" href="{{ route('admin.milk-purchases.index') }}">
-            <i class="bi bi-box-arrow-in-down me-2"></i> Incoming Milk
+            <i class="bi bi-box-arrow-in-down me-2"></i> {{ __('app.nav.milk_purchases') }}
         </a>
         @endcan
 
         @can('milk-stock.view')
         <a class="nav-link {{ request()->routeIs('admin.milk-stock.*') ? 'active' : '' }}" href="{{ route('admin.milk-stock.index') }}">
-            <i class="bi bi-water me-2"></i> Milk Stock
+            <i class="bi bi-water me-2"></i> {{ __('app.nav.milk_stock') }}
         </a>
         @endcan
 
         @can('cash-sales.view')
         <a class="nav-link {{ request()->routeIs('admin.cash-sales.*') ? 'active' : '' }}" href="{{ route('admin.cash-sales.index') }}">
-            <i class="bi bi-cash-stack me-2"></i> Cash Sales
+            <i class="bi bi-cash-stack me-2"></i> {{ __('app.nav.cash_sales') }}
         </a>
         @endcan
 
         @can('bills.view')
         <a class="nav-link {{ request()->routeIs('admin.bills.*') ? 'active' : '' }}" href="{{ route('admin.bills.index') }}">
-            <i class="bi bi-receipt me-2"></i> Bills
+            <i class="bi bi-receipt me-2"></i> {{ __('app.nav.bills') }}
         </a>
         @endcan
 
         @can('payments.view')
         <a class="nav-link {{ request()->routeIs('admin.payments.*') ? 'active' : '' }}" href="{{ route('admin.payments.index') }}">
-            <i class="bi bi-credit-card me-2"></i> Payments
+            <i class="bi bi-credit-card me-2"></i> {{ __('app.nav.payments') }}
         </a>
         @endcan
 
         @can('expenses.view')
         <a class="nav-link {{ request()->routeIs('admin.expenses.*') ? 'active' : '' }}" href="{{ route('admin.expenses.index') }}">
-            <i class="bi bi-wallet2 me-2"></i> Expenses
+            <i class="bi bi-wallet2 me-2"></i> {{ __('app.nav.expenses') }}
         </a>
         @endcan
 
         @can('products.view')
         <a class="nav-link {{ request()->routeIs('admin.products.*') ? 'active' : '' }}" href="{{ route('admin.products.index') }}">
-            <i class="bi bi-box-seam me-2"></i> Products & Inventory
+            <i class="bi bi-box-seam me-2"></i> {{ __('app.nav.products') }}
         </a>
         @endcan
 
         @can('employees.view')
         <a class="nav-link {{ request()->routeIs('admin.employees.*') ? 'active' : '' }}" href="{{ route('admin.employees.index') }}">
-            <i class="bi bi-person-badge me-2"></i> Employees
+            <i class="bi bi-person-badge me-2"></i> {{ __('app.nav.employees') }}
         </a>
         @endcan
 
         @can('routes.view')
         <a class="nav-link {{ request()->routeIs('admin.routes.*') ? 'active' : '' }}" href="{{ route('admin.routes.index') }}">
-            <i class="bi bi-signpost-2 me-2"></i> Routes / Areas
+            <i class="bi bi-signpost-2 me-2"></i> {{ __('app.nav.routes') }}
         </a>
         @endcan
 
         @can('reports.view')
         <a class="nav-link {{ request()->routeIs('admin.reports.*') ? 'active' : '' }}" href="{{ route('admin.reports.index') }}">
-            <i class="bi bi-bar-chart-line me-2"></i> Reports
+            <i class="bi bi-bar-chart-line me-2"></i> {{ __('app.nav.reports') }}
         </a>
         @endcan
 
         @can('users.view')
         <a class="nav-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}" href="{{ route('admin.users.index') }}">
-            <i class="bi bi-person-gear me-2"></i> Users & Roles
+            <i class="bi bi-person-gear me-2"></i> {{ __('app.nav.users') }}
         </a>
         @endcan
 
         @can('settings.view')
         <a class="nav-link {{ request()->routeIs('admin.settings.*') ? 'active' : '' }}" href="{{ route('admin.settings.index') }}">
-            <i class="bi bi-gear me-2"></i> Settings
+            <i class="bi bi-gear me-2"></i> {{ __('app.nav.settings') }}
         </a>
         @endcan
 
         @can('activity-logs.view')
          <a class="nav-link {{ request()->routeIs('admin.audit.*') ? 'active' : '' }}" href="{{ route('admin.audit.index') }}">
-             <i class="bi bi-shield-check me-2"></i> Activity & Audit
+             <i class="bi bi-shield-check me-2"></i> {{ __('app.nav.audit') }}
          </a>
          @endcan
     </nav>
@@ -180,14 +185,35 @@
                 </button>
                 <form class="d-none d-md-block" action="{{ route('admin.search') }}" method="GET">
                     <input type="search" name="q" class="form-control form-control-sm" style="width:280px"
-                           placeholder="Search consumer ID, phone, name, invoice..." value="{{ request('q') }}">
+                           placeholder="{{ __('app.topbar.search_placeholder') }}" value="{{ request('q') }}">
                 </form>
             </div>
 
             <div class="d-flex align-items-center gap-3">
-                <button class="btn btn-sm btn-outline-secondary" id="themeToggle" title="Toggle theme">
+                <button class="btn btn-sm btn-outline-secondary" id="themeToggle" title="{{ __('app.topbar.toggle_theme') }}">
                     <i class="bi bi-moon-stars"></i>
                 </button>
+
+                <div class="dropdown">
+                    <button class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1" data-bs-toggle="dropdown" title="{{ __('app.topbar.language') }}">
+                        <i class="bi bi-translate"></i>
+                        <span class="d-none d-sm-inline">{{ config('languages.supported.'.app()->getLocale().'.native') }}</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        @foreach(config('languages.supported') as $code => $lang)
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center gap-2 {{ app()->getLocale() === $code ? 'active' : '' }}"
+                                   href="{{ route('language.switch', $code) }}">
+                                    <span>{{ $lang['flag'] }}</span>
+                                    <span>{{ $lang['native'] }}</span>
+                                    @if(app()->getLocale() === $code)
+                                        <i class="bi bi-check-lg ms-auto"></i>
+                                    @endif
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
 
                 <div class="dropdown">
                     <button class="btn btn-sm btn-outline-secondary position-relative" data-bs-toggle="dropdown">
@@ -199,11 +225,11 @@
                         @endif
                     </button>
                     <div class="dropdown-menu dropdown-menu-end p-2" style="width:320px">
-                        <h6 class="dropdown-header">Notifications</h6>
+                        <h6 class="dropdown-header">{{ __('app.topbar.notifications') }}</h6>
                         @forelse(($recentNotifications ?? []) as $note)
                             <a class="dropdown-item small text-wrap" href="{{ $note->link ?? '#' }}">{{ $note->title }}</a>
                         @empty
-                            <span class="dropdown-item small text-muted">No new notifications</span>
+                            <span class="dropdown-item small text-muted">{{ __('app.topbar.no_notifications') }}</span>
                         @endforelse
                     </div>
                 </div>
@@ -216,11 +242,11 @@
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><span class="dropdown-item-text small text-muted">{{ auth()->user()?->getRoleNames()->join(', ') }}</span></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>Profile</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="bi bi-person me-2"></i>{{ __('app.topbar.profile') }}</a></li>
                         <li>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <button class="dropdown-item text-danger"><i class="bi bi-box-arrow-right me-2"></i>Logout</button>
+                                <button class="dropdown-item text-danger"><i class="bi bi-box-arrow-right me-2"></i>{{ __('app.topbar.logout') }}</button>
                             </form>
                         </li>
                     </ul>
@@ -257,7 +283,7 @@
     </main>
 
     <footer class="text-center text-muted small py-3">
-        &copy; {{ date('Y') }} {{ setting('company_name', config('app.name')) }}. All rights reserved.
+        &copy; {{ date('Y') }} {{ setting('company_name', config('app.name')) }}. {{ __('app.common.all_rights_reserved') }}
     </footer>
 </div>
 

@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('title', __('app.holidays.edit_holiday'))
+@section('title', 'Edit Holiday')
 
 @section('content')
 <div class="mb-3">
-    <h4 class="mb-0">{{ __('app.holidays.edit_holiday') }}</h4>
+    <h4 class="mb-0">Edit Holiday</h4>
 </div>
 
 <form action="{{ route('admin.holidays.update', $holiday) }}" method="POST">
